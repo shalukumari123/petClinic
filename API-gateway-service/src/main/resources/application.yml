@@ -1,0 +1,38 @@
+server:
+  port: 9010
+  
+spring:
+  application:
+    name: apigateway-service
+  cloud:
+    gateway:
+      routes:
+      - id: owner_service
+        uri: lb://owner-service
+        predicates:
+        - Path= /owners/** #the part of back end application uri
+      - id: vet_service
+        uri: lb://vet-service
+        predicates:
+        - Path= /vets/**
+      - id: visit_service
+        uri: lb://visit-service
+        predicates:
+        - Path= /visits/**
+      - id: ui_service
+        uri: lb://ui-service
+        predicates:
+        - Path= /petclinic/**
+          
+ 
+eureka:
+  client:
+    register-with-eureka: true
+    service-url:
+      defaultZone: ${EUREKA_SERVER:http://localhost:8761/eureka/}
+      
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
