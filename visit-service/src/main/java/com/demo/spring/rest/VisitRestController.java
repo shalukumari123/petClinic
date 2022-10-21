@@ -28,7 +28,6 @@ import io.micrometer.core.annotation.Timed;
 
 @RestController
 @RequestMapping("/visits")
-@Timed("petclinic.visits")
 public class VisitRestController {
 
 	@Autowired
